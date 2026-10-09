@@ -1,0 +1,21 @@
+[package]
+name = "harness"
+version = "0.1.0"
+edition = "2021"
+publish = false
+
+[lib]
+path = "src/lib.rs"
+
+[dev-dependencies]
+# The native program, as a host lib (no entrypoint) for its instruction enum + ID.
+quantum-vault = { path = "../../programs/quantum-vault", default-features = false, features = ["no-entrypoint"] }
+# WOTS with the host (sha3) backend for client-side signing.
+wots = { path = "../wots" }
+borsh = "1"
+# anchor-spl/-lang are used only as test utilities for SPL mint/ATA setup.
+anchor-spl = "0.31.1"
+anchor-lang = "0.31.1"
+litesvm = "0.6"
+solana-sdk = "2.2"
+solana-client = "2.2"

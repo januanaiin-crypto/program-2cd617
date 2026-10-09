@@ -1,0 +1,26 @@
+# Vendored from QuantiumResistantInfra/quantum-vault @ 47e06d5 (MIT, see LICENSE).
+# Changes: program id, size-optimised release profile, devnet_smoke reads env wallet/RPC.
+[workspace]
+resolver = "2"
+members = ["crates/wots", "crates/harness", "programs/quantum-vault"]
+
+[workspace.package]
+edition = "2021"
+license = "MIT"
+
+[profile.release]
+overflow-checks = true
+opt-level = "s" # "z" is 48 B smaller but ~1.5x the CU (spend 145-172k vs 90-113k, near the 200k default), 2026-10-09
+lto = "fat"
+codegen-units = 1
+panic = "abort"
+strip = true
+
+[profile.release.build-override]
+opt-level = 3
+incremental = false
+codegen-units = 1
+
+# toolchain for the verifiable build (solana-verify picks the matching build image)
+[workspace.metadata.cli]
+solana = "4.1.2"

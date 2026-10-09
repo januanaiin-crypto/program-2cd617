@@ -1,0 +1,20 @@
+[package]
+name = "quantum-vault"
+version = "0.1.0"
+edition = "2021"
+license = "MIT"
+description = "Native Solana program for a quantum-resistant (Winternitz OTS) vault."
+
+[lib]
+crate-type = ["cdylib", "lib"]
+name = "quantum_vault"
+
+[features]
+# Lets the crate be linked as a host library (e.g. test harness) without the
+# BPF entrypoint symbol.
+no-entrypoint = []
+
+[dependencies]
+solana-program = "2.1"
+borsh = { version = "1", features = ["derive"] }
+wots = { path = "../../crates/wots", default-features = false, features = ["solana-backend"] }
